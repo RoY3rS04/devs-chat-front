@@ -1,8 +1,17 @@
 import { useNavigate } from "react-router-dom";
 import myAxios from "../utils/axios";
+import useAuth from "../hooks/useAuth";
+import { useEffect } from "react";
 
 export default function Login() {
     const navigate = useNavigate();
+    const { authUser } = useAuth();
+
+    useEffect(() => {
+        if (authUser?._id) {
+            navigate('/');
+        }
+    })
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -23,22 +32,9 @@ export default function Login() {
 
             navigate('/')
         } catch (error) {
-            console.log(error);
+            console.log(error.response.data.msg);
         }
         
-    }
-
-    async function handleGoogle(e) {
-        e.preventDefault();
-
-        try {
-            const { data } = await myAxios.get('auth/google/success');
-
-            console.log(data);
-
-        } catch (error) {
-            console.log(error);
-        }
     }
 
     return (

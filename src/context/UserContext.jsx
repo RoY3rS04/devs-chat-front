@@ -6,7 +6,7 @@ const UserContext = createContext();
 const UserProvider = ({ children }) => {
 
     const [authUser, setAuthUser] = useState({});
-    //const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     
     useEffect(() => {
         async function authenticate() {
@@ -24,6 +24,7 @@ const UserProvider = ({ children }) => {
         let token;
 
         if (!sessionOk && !tokenOk) {
+            setLoading(false);
             return setAuthUser(null);
         }
 
@@ -32,6 +33,8 @@ const UserProvider = ({ children }) => {
         } else {
             token = sessionToken;
         }
+
+        localStorage.setItem('token', token);
 
         try {
             
@@ -46,6 +49,9 @@ const UserProvider = ({ children }) => {
         } catch (error) {
             console.log(error);
         }
+
+        setLoading(false);
+        //window.location.replace('/');
     }
 
     async function verifySession() {
@@ -77,7 +83,8 @@ const UserProvider = ({ children }) => {
     return (
         <UserContext.Provider value={{
             setAuthUser,
-            authUser
+            authUser,
+            loading
         }}>
             {children}
         </UserContext.Provider>

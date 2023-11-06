@@ -1,8 +1,18 @@
 import myAxios from "../utils/axios";
 import { useNavigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
+import { useEffect } from "react";
 
 export default function Login() {
     const navigate = useNavigate();
+
+    const { authUser } = useAuth();
+
+    useEffect(() => {
+        if (authUser?._id) {
+            navigate('/');
+        }
+    })
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -36,7 +46,7 @@ export default function Login() {
                 <div>
                     <h1 className="text-4xl font-bold">Welcome to DevsChat!</h1>
                     <p className="text-lg font-medium text-gray-500 text-center">Please register to enter the app</p>
-                    <form onSubmit={handleSubmit} className="mt-10 space-y-3 w-">
+                    <form onSubmit={handleSubmit} className="mt-10 space-y-3">
                         <div className="flex flex-col gap-y-2">
                             <label htmlFor="name">Name</label>
                             <input
