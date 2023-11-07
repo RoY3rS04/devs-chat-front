@@ -4,7 +4,7 @@ import ChatCard from "../components/ChatCard";
 
 export default function Chats() {
 
-    const [chats, setChats] = useState();
+    const [chats, setChats] = useState([]);
 
     useEffect(() => {
 
@@ -29,8 +29,8 @@ export default function Chats() {
     }, []);
 
     return (
-        <>
+        <div className="grid grid-cols-2 gap-4">
             {chats?.map(chat => <ChatCard key={chat._id} chat={chat}></ChatCard>)}
-        </>
+        </div>
     )
 }
