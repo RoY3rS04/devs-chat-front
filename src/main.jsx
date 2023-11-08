@@ -10,14 +10,15 @@ import Users from './Pages/Users.jsx';
 import Groups from './Pages/Groups.jsx';
 import Chats from './Pages/Chats.jsx';
 import Profile from './Pages/Profile.jsx';
+import Chat from './Pages/Chat.jsx';
 
 const router = createBrowserRouter([
   {
-    path: 'login',
+    path: '/login',
     element: <Login />
   },
   {
-    path: 'register',
+    path: '/register',
     element: <Register/>
   },
   {
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
       {
         path: '/profile',
         element: <Profile/>
+      },
+      {
+        path: '/general-chat',
+        element: <Chat></Chat>
       }
     ]
   }

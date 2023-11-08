@@ -21,8 +21,8 @@ export default function Home() {
                     (
                         <>
                             <Aside user={authUser}></Aside>
-                            <main className="container mx-auto overflow-y-scroll p-2 relative">
-                                <div className="flex items-center justify-between mb-10">
+                            <main className="container mx-auto overflow-y-scroll p-2 relative flex flex-col">
+                                <div className="flex items-center justify-between mb-5">
                                     <h1 className="font-medium text-3xl">{location.pathname !== '/' ? location.pathname.slice(1)[0].toUpperCase() + location.pathname.slice(2) : ''}</h1>
                                     {location.pathname.includes('groups') ? (
                                         <button onClick={() => setModal(true)}>

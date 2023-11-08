@@ -8,7 +8,7 @@ export default function SideNav() {
                 <Link to='/your-groups' className="text-sm font-medium">Your Groups</Link>
                 <Link to='/users' className="text-sm font-medium">Users</Link>
                 <Link to='/groups' className="text-sm font-medium">Groups</Link>
-                <Link to='/chat' className="text-sm font-medium">Global Chat</Link>
+                <Link to='/general-chat' className="text-sm font-medium">Global Chat</Link>
                 <Link to='/profile' className="text-sm font-medium">Profile</Link>
             </ul>
         </nav>
