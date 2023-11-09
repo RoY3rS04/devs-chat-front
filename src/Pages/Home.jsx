@@ -13,7 +13,7 @@ export default function Home() {
     if (loading) {
         return 'Loading...'
     }
-
+    
     return (
         <>
             <div className="w-screen h-screen flex gap-x-10 font-[Rubik] p-3 relative">
