@@ -34,6 +34,10 @@ const router = createBrowserRouter([
         element: <Groups/>
       }, 
       {
+        path: '/groups/:id',
+        element: <Chat type='group'></Chat>
+      },
+      {
         path: '/your-groups',
         element: <Groups/>
       },
@@ -42,12 +46,16 @@ const router = createBrowserRouter([
         element: <Chats/>
       },
       {
+        path: '/chats/:id',
+        element: <Chat type='private'></Chat>
+      },
+      {
         path: '/profile',
         element: <Profile/>
       },
       {
         path: '/general-chat',
-        element: <Chat></Chat>
+        element: <Chat type='group'></Chat>
       }
     ]
   }

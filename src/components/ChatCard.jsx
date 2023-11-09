@@ -1,4 +1,5 @@
 import useAuth from "../hooks/useAuth";
+import { Link } from "react-router-dom";
 
 export default function ChatCard({ chat }) {
 
@@ -9,7 +10,7 @@ export default function ChatCard({ chat }) {
     const lastMessage = chat.messages[chat.messages.length - 1];
 
     return (
-        <div className="flex items-center gap-x-3">
+        <Link to={`/chats/${chat._id}`} className="flex items-center gap-x-3">
             <div className="w-7 h-7 rounded-full overflow-hidden">
                 <img className="w-full h-full" src={user.img.split('*')[0]} alt="User image" />
             </div>
@@ -20,6 +21,6 @@ export default function ChatCard({ chat }) {
                     <span className="text-gray-400 text-xs">{lastMessage?.createdAt}</span>
                 </p>
             </div>
-        </div>
+        </Link>
     )
 }

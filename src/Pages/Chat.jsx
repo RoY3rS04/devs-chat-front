@@ -2,16 +2,33 @@ import { useEffect, useState } from "react"
 import Message from "../components/Message"
 import myAxios from "../utils/axios";
 import {socket} from "../socket";
+import useAuth from "../hooks/useAuth";
+import { useParams } from "react-router-dom";
 
-export default function Chat({ chat, type }) {
+export default function Chat({ type }) {
 
     const [messages, setMessages] = useState([]);
+    const { authUser } = useAuth();
+    const { id } = useParams();
 
     useEffect(() => {
 
         async function getChatMessages() {
-            if (!chat) {
-                const { data } = await myAxios.get('/messages/group/654bb4e174e4c8639b09406a', {
+            if (type === 'group') {
+
+                if (!id) {
+                    const { data } = await myAxios.get('/messages/group/654bb4e174e4c8639b09406a', {
+                        headers: {
+                            'x-token': localStorage.getItem('token')
+                        }
+                    })
+
+                    setMessages(data.messages);
+
+                    return;
+                }
+
+                const { data } = await myAxios.get(`/messages/group/${id}`, {
                     headers: {
                         'x-token': localStorage.getItem('token')
                     }
@@ -20,19 +37,13 @@ export default function Chat({ chat, type }) {
                 setMessages(data.messages);
             } else {
 
-                let url = '';
-
-                if (type === 'group') {
-                    url = '/messages/group'
-                } else {
-                    url = '/messages/chat'
-                }
-
-                const { data } = await myAxios.get(`${url}/${chat}`, {
+                const { data } = await myAxios.get(`/messages/chat/${id}`, {
                     headers: {
                         'x-token': localStorage.getItem('token')
                     }
                 })
+
+                console.log(data);
 
                 setMessages(data.messages);
             }
@@ -40,7 +51,12 @@ export default function Chat({ chat, type }) {
 
         getChatMessages();
 
-        function onNewMessage(message) {
+        function onNewMessage({ ok, message, msg }) {
+
+            if (!ok) {
+                return msg;
+            }
+
             setMessages(prev => [
                 ...prev,
                 message
@@ -61,24 +77,27 @@ export default function Chat({ chat, type }) {
 
         let url = '';
 
-        if (!chat) {
-            url = '/messages/group/654bb4e174e4c8639b09406a'
+        if (!id || (id && type === 'group')) {
+            url = '/messages/group'
+        } else if(id && type === 'private') {
+            url = '/messages/chat'
         } else {
-            if (type === 'group') {
-                url = `/messages/group/${chat}`
-            } else {
-                url = `/messages/chat/${chat}`
-            }
+            return;
         }
 
         try {
-            const { data } = await myAxios.post(url, formData, {
-                headers: {
-                    'x-token': localStorage.getItem('token')
+            socket.emit(url, {
+                user: authUser,
+                id: id ?? '654bb4e174e4c8639b09406a',
+                body: {
+                    content: formData.get('content')
                 }
-            })
+            });
 
-            console.log(data);
+            /* setMessages(prev => [
+                ...prev,
+                data.message
+            ]) */
         } catch (error) {
             console.log(error);
         }

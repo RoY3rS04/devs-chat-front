@@ -24,7 +24,7 @@ export default function Login() {
         };
 
         try {
-            const { data } = await myAxios.post('auth/login', info);
+            const { data } = await myAxios.post('/auth/login', info);
 
             if (data.token) {
                 localStorage.setItem('token', data.token);
