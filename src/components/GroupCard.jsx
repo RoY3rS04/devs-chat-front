@@ -1,6 +1,7 @@
 import { useLocation } from "react-router-dom";
 import myAxios from "../utils/axios"
 import useAuth from "../hooks/useAuth";
+import { Link } from "react-router-dom";
 
 export default function GroupCard({ group }) {
 
@@ -37,13 +38,11 @@ export default function GroupCard({ group }) {
                 'x-token': localStorage.getItem('token')
             }
         })
-
-        console.log(data);
     }
 
     return (
         <div className="flex flex-col gap-y-2">
-            <div className="flex items-center gap-x-3">
+            <Link to={`/groups/${group._id}`} className="flex items-center gap-x-3">
                 <div className="rounded-full overflow-hidden w-8 h-8 ">
                     {group.img
                         ? <img className="w-full h-full" src={group.img.split('*')[0]} alt="Group image" />
@@ -56,7 +55,7 @@ export default function GroupCard({ group }) {
                         <span className="font-medium"> {group.users.length}</span>
                     </p>
                 </div>
-            </div>
+            </Link>
             <div className="flex items-center gap-x-3">
                 {location.pathname === '/groups' ? <button onClick={joinToGroup} className="rounded-xl py-1 px-3 bg-blue-600 text-xs font-medium text-white">Join Group</button> : null}
                 {location.pathname.includes('you') ? <button onClick={leaveGroup} className="rounded-xl py-1 px-3 bg-red-600 text-xs font-medium text-white">Leave Group</button> : null}

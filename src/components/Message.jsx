@@ -4,9 +4,7 @@ import useAuth from "../hooks/useAuth"
 export default function Message({ message }) {
 
     const { authUser } = useAuth();
-
-    console.log(message);
-
+    
     return (
         <div className={`flex gap-x-2 ${clsx({
             'justify-end': message.user._id === authUser._id

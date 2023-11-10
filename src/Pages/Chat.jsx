@@ -10,23 +10,14 @@ export default function Chat({ type }) {
     const [messages, setMessages] = useState([]);
     const { authUser } = useAuth();
     const { id } = useParams();
+    const generalId = '654bb4e174e4c8639b09406a';
 
     useEffect(() => {
 
+        setMessages([]);
+
         async function getChatMessages() {
             if (type === 'group') {
-
-                if (!id) {
-                    const { data } = await myAxios.get('/messages/group/654bb4e174e4c8639b09406a', {
-                        headers: {
-                            'x-token': localStorage.getItem('token')
-                        }
-                    })
-
-                    setMessages(data.messages);
-
-                    return;
-                }
 
                 const { data } = await myAxios.get(`/messages/group/${id}`, {
                     headers: {
@@ -43,18 +34,20 @@ export default function Chat({ type }) {
                     }
                 })
 
-                console.log(data);
-
                 setMessages(data.messages);
             }
         }
 
         getChatMessages();
 
-        function onNewMessage({ ok, message, msg }) {
+        function onNewMessage({ ok, message, msg, belongsTo }) {
 
             if (!ok) {
                 return msg;
+            }
+
+            if (belongsTo !== id) {
+                return;
             }
 
             setMessages(prev => [
@@ -68,7 +61,7 @@ export default function Chat({ type }) {
         return () => {
             socket.off('new-message', onNewMessage)
         }
-    }, []);
+    }, [id]);
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -77,9 +70,9 @@ export default function Chat({ type }) {
 
         let url = '';
 
-        if (!id || (id && type === 'group')) {
+        if (type === 'group') {
             url = '/messages/group'
-        } else if(id && type === 'private') {
+        } else if (type === 'private') {
             url = '/messages/chat'
         } else {
             return;
@@ -88,7 +81,7 @@ export default function Chat({ type }) {
         try {
             socket.emit(url, {
                 user: authUser,
-                id: id ?? '654bb4e174e4c8639b09406a',
+                id: id ?? generalId,
                 body: {
                     content: formData.get('content')
                 }

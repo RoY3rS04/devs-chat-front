@@ -21,8 +21,6 @@ export default function Groups() {
                 'x-token': localStorage.getItem('token')
             }
         })
-
-        console.log(data);
     }
 
     function handleImageOnChange(e) {
