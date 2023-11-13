@@ -1,6 +1,6 @@
 import useAuth from "../hooks/useAuth";
 import { Link } from "react-router-dom";
-import { format, render, cancel, register } from 'timeago.js';
+import { format } from 'timeago.js';
 
 export default function ChatCard({ chat }) {
 

@@ -11,6 +11,7 @@ import Groups from './Pages/Groups.jsx';
 import Chats from './Pages/Chats.jsx';
 import Profile from './Pages/Profile.jsx';
 import Chat from './Pages/Chat.jsx';
+import { ChakraBaseProvider } from '@chakra-ui/react';
 
 const router = createBrowserRouter([
   {
@@ -59,8 +60,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <UserProvider>
-      <RouterProvider router={router}/>
-    </UserProvider>
+    <ChakraBaseProvider>
+      <UserProvider>
+        <RouterProvider router={router}/>
+      </UserProvider>
+    </ChakraBaseProvider>
   </React.StrictMode>,
 )

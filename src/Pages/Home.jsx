@@ -4,12 +4,22 @@ import Aside from "../components/Aside";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
 
+import {
+    Drawer,
+    DrawerBody,
+    DrawerHeader,
+    DrawerOverlay,
+    DrawerContent,
+    DrawerCloseButton, 
+} from "@chakra-ui/react";
+
 export default function Home() {
     
     const { authUser, loading } = useAuth();
     const location = useLocation();
     const [groupModal, setGroupModal] = useState(false);
     const [deleteModal, setDeleteModal] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     if (loading) {
         return 'Loading...'
@@ -17,12 +27,12 @@ export default function Home() {
     
     return (
         <>
-            <div className="w-screen h-screen flex gap-x-10 font-[Rubik] p-3 relative">
+            <div className="w-screen h-screen flex gap-x-10 font-[Rubik] p-3 relative md:block">
                 {authUser?._id ?
                     (
                         <>
                             <Aside user={authUser} modalState={{deleteModal, setDeleteModal}}></Aside>
-                            <main className="container mx-auto flex p-2 flex-col">
+                            <main className="container mx-auto flex p-2 flex-col md:h-full">
                                 <div className="absolute top-3 right-3">
                                     {!location.pathname.split('/')[2] && location.pathname.includes('groups') ? (
                                         <button onClick={() => setGroupModal(true)}>
@@ -42,8 +52,26 @@ export default function Home() {
                     )
                     : <Navigate to='/login' />
                 }
-            </div>
+                <div onClick={() => setIsMenuOpen(true)} className="hidden md:block cursor-pointer bg-red-500 h-4 w-4 rounded-full absolute top-4 right-4">
+                    <Drawer
+                        className='z-10'
+                        isOpen={isMenuOpen}
+                        placement="right"
+                        onClose={() => setIsMenuOpen(false)}
+                        size='xs'
+                    >
+                        <DrawerOverlay />
+                        <DrawerContent>
+                            <DrawerCloseButton/>
+                            <DrawerHeader></DrawerHeader>
 
+                            <DrawerBody>
+                                <h1>Hi</h1>
+                            </DrawerBody>
+                        </DrawerContent>
+                    </Drawer>
+                </div>
+            </div>
         </>
     )
 }

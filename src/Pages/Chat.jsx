@@ -106,7 +106,7 @@ export default function Chat({ type }) {
             <div className="flex-1 space-y-3 overflow-y-scroll">
                 {messages.map(message => <Message key={message._id} message={message}></Message>)}
             </div>
-            <form onSubmit={handleSubmit} className="flex items-center gap-x-4">
+            <form onSubmit={handleSubmit} className="flex gap-x-4">
                 <div className="flex flex-col flex-1 gap-y-2">
                     <input
                         className="rounded-sm border py-2 px-3"

@@ -27,7 +27,6 @@ export default function ChatHeader({ chat }) {
                 </div>
                 <div className="space-y-2">
                     <h2 className="text-xl font-medium">{name}</h2>
-                    <span>online</span>
                 </div>
             </header>
         </>
