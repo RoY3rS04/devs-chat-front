@@ -22,9 +22,8 @@ export default function Home() {
                     (
                         <>
                             <Aside user={authUser} modalState={{deleteModal, setDeleteModal}}></Aside>
-                            <main className="container mx-auto overflow-y-scroll p-2 flex flex-col">
-                                <div className="flex items-center justify-between mb-5">
-                                    <h1 className="font-medium text-3xl">{location.pathname !== '/' ? location.pathname.slice(1)[0].toUpperCase() + location.pathname.slice(2) : ''}</h1>
+                            <main className="container mx-auto flex p-2 flex-col">
+                                <div className="absolute top-3 right-3">
                                     {!location.pathname.split('/')[2] && location.pathname.includes('groups') ? (
                                         <button onClick={() => setGroupModal(true)}>
                                             <svg className="w-8 h-8" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">

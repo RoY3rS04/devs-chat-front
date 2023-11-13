@@ -29,8 +29,11 @@ export default function Chats() {
     }, []);
 
     return (
-        <div className="grid grid-cols-2 gap-4">
-            {chats?.map(chat => <ChatCard key={chat._id} chat={chat}></ChatCard>)}
-        </div>
+        <>
+            <h1 className="text-2xl font-medium mb-5">Your Chats</h1>
+            <div className="grid grid-cols-2 gap-4">
+                {chats?.map(chat => <ChatCard key={chat._id} chat={chat}></ChatCard>)}
+            </div>
+        </>
     )
 }

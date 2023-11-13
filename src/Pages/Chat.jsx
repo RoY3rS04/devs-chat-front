@@ -4,10 +4,12 @@ import myAxios from "../utils/axios";
 import {socket} from "../socket";
 import useAuth from "../hooks/useAuth";
 import { useParams } from "react-router-dom";
+import ChatHeader from "../components/ChatHeader";
 
 export default function Chat({ type }) {
 
     const [messages, setMessages] = useState([]);
+    const [chat, setChat] = useState({});
     const { authUser } = useAuth();
     const { id } = useParams();
     const generalId = '654bb4e174e4c8639b09406a';
@@ -25,7 +27,8 @@ export default function Chat({ type }) {
                     }
                 })
 
-                setMessages(data.messages);
+                setMessages(data.group.messages);
+                setChat(data.group);
             } else {
 
                 const { data } = await myAxios.get(`/messages/chat/${id}`, {
@@ -34,7 +37,8 @@ export default function Chat({ type }) {
                     }
                 })
 
-                setMessages(data.messages);
+                setMessages(data.chat.messages);
+                setChat(data.chat);
             }
         }
 
@@ -98,7 +102,8 @@ export default function Chat({ type }) {
 
     return (
         <section className="flex flex-col gap-y-3 h-full">
-            <div className="flex-1 space-y-3">
+            {location.pathname.includes('654bb4e174e4c8639b09406a') ? <h1 className="text-2xl font-medium">General Chat</h1> : chat._id ? <ChatHeader chat={chat}></ChatHeader> : null}
+            <div className="flex-1 space-y-3 overflow-y-scroll">
                 {messages.map(message => <Message key={message._id} message={message}></Message>)}
             </div>
             <form onSubmit={handleSubmit} className="flex items-center gap-x-4">

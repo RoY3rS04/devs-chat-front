@@ -1,5 +1,6 @@
 import useAuth from "../hooks/useAuth";
 import { Link } from "react-router-dom";
+import { format, render, cancel, register } from 'timeago.js';
 
 export default function ChatCard({ chat }) {
 
@@ -16,10 +17,10 @@ export default function ChatCard({ chat }) {
             </div>
             <div className="space-y-1">
                 <h3 className="font-medium">{user.name}</h3>
-                <p className="text-sm">
-                    {lastMessage?.content} 
-                    <span className="text-gray-400 text-xs">{lastMessage?.createdAt}</span>
-                </p>
+                {lastMessage ? <p className="text-sm">
+                    {`${lastMessage.user === authUser._id ? 'You: ' : `${user.name}: `} ${lastMessage.content}` + ' '}
+                    <span className="text-gray-400 text-xs">{format(lastMessage.createdAt)}</span>
+                </p> : null }
             </div>
         </Link>
     )
