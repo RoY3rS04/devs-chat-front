@@ -13,7 +13,7 @@ export default function Message({ message }) {
         <div className={`flex ${clsx({
             'justify-end': message.user._id === authUser._id
         })}`}>
-            <div className="max-w-[50%]">
+            <div className="max-w-[70%]">
                 <div className={`flex gap-x-3`}>
                 {message.user._id !== authUser._id ? (<div className="min-w-[32px] h-8 overflow-hidden rounded-full">
                     <img className="w-full h-full" src={message.user.img.split('*')[0]} alt="User image" />

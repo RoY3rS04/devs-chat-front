@@ -28,7 +28,7 @@ export default function Users() {
     return (
         <>
             <h1 className="text-2xl font-medium mb-5">Users</h1>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-1 gap-4">
                 {users.map((user) => <UserCard key={user._id} user={user}></UserCard>)}
             </div>
         </>

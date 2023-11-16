@@ -84,7 +84,8 @@ const UserProvider = ({ children }) => {
         <UserContext.Provider value={{
             setAuthUser,
             authUser,
-            loading
+            loading,
+            isAuthUser
         }}>
             {children}
         </UserContext.Provider>

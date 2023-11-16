@@ -10,25 +10,6 @@ export default function SideNav({modalState}) {
         setDeleteModal(true);
     }
 
-    async function handleSubmit(e) {
-        e.preventDefault();
-
-        const formData = new FormData(e.target);
-
-        try {
-            const { data } = await myAxios.delete('/users', {
-                headers: {
-                    'x-token': localStorage.getItem('token')
-                },
-                data: formData
-            })
-
-            location.href = '/login';
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
     return (
         <nav>
             <ul className="flex flex-col gap-y-7 items-center">
@@ -41,18 +22,9 @@ export default function SideNav({modalState}) {
                 <button onClick={onDeleteClick} className="text-sm font-bold text-red-600">Delete Account</button>
             </ul>
             <Modal modal={deleteModal} setModal={setDeleteModal} title='Delete Account'>
-                <form onSubmit={handleSubmit} className="space-y-3">
-                    <div className="flex flex-col gap-y-2">
-                        <label htmlFor="password">Your password</label>
-                        <input
-                            className="rounded-sm border py-2 px-3"
-                            id="password"
-                            placeholder="Your password"
-                            name="password"
-                            type="password"
-                        />
-                    </div>
-                    <button className="w-full py-2 px-3 rounded-md text-white bg-red-600 font-semibold">Delete Account</button>
+                <form className="space-y-3">
+                    <h2 className="text-lg font-medium text-center">We will send you an email with the instructions to delete your account</h2>
+                    <button className="w-full py-2 px-3 rounded-md text-white bg-red-600 font-semibold">Send Email</button>
                 </form>
             </Modal>
         </nav>

@@ -6,7 +6,7 @@ export default function Modal({ setModal, modal, children, title }) {
 
     return (
         <>
-            {modal ? <div className="right-[50%] top-[10%] absolute z-10">
+            {modal ? <div className="right-[50%] top-[10%] absolute z-20">
                 <div className="relative right-[-50%] rounded-xl bg-white shadow-xl p-3 space-y-3">
                     <div className="flex items-center justify-between" >
                         <h2 className="font-medium">{title}</h2>

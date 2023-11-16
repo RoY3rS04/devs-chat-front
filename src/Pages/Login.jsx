@@ -5,7 +5,7 @@ import { useEffect } from "react";
 
 export default function Login() {
     const navigate = useNavigate();
-    const { authUser } = useAuth();
+    const { authUser, isAuthUser } = useAuth();
 
     useEffect(() => {
         if (authUser?._id) {
@@ -29,6 +29,8 @@ export default function Login() {
             if (data.token) {
                 localStorage.setItem('token', data.token);
             }
+
+            await isAuthUser();
 
             navigate('/')
         } catch (error) {

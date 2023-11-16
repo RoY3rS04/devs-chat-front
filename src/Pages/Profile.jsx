@@ -41,7 +41,7 @@ export default function Profile() {
                         </svg>
                     </label>
                 </div>
-                <form onSubmit={handleSubmit} className="space-y-3 mt-10 min-w-[400px]">
+                <form onSubmit={handleSubmit} className="space-y-3 mt-10 md:w-[90%]">
                     <div className="flex flex-col gap-y-2 w-full">
                         <input onChange={handleOnChangeImage} type="file" name="image" id="image" hidden/>
                         <label htmlFor="name">Name</label>

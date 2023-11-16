@@ -13,12 +13,10 @@ export default function UserCard({ user }) {
                 'x-token': localStorage.getItem('token')
             }
         })
-
-        console.log(data);
     }
 
     return (
-        <div className="flex gap-x-4 items-center">
+        <div className="flex gap-x-4 items-center md:gap-y-2">
             <div className="rounded-full overflow-hidden w-8 h-8 ">
                 <img className="w-full h-full" src={user.img.split('*')[0]} alt="User image" />
             </div>

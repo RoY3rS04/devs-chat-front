@@ -21,19 +21,23 @@ export default function Home() {
     const [deleteModal, setDeleteModal] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+    console.log(authUser)
+
     if (loading) {
         return 'Loading...'
     }
     
     return (
         <>
-            <div className="w-screen h-screen flex gap-x-10 font-[Rubik] p-3 relative md:block">
+            <div className="w-screen h-screen flex gap-x-10 font-[Rubik] p-3 isolate relative md:block">
                 {authUser?._id ?
                     (
                         <>
-                            <Aside user={authUser} modalState={{deleteModal, setDeleteModal}}></Aside>
+                            <div className="md:hidden">
+                                <Aside user={authUser} modalState={{deleteModal, setDeleteModal}}></Aside>
+                            </div>
                             <main className="container mx-auto flex p-2 flex-col md:h-full">
-                                <div className="absolute top-3 right-3">
+                                <div className="absolute top-3 md:top-auto md:bottom-5 right-3">
                                     {!location.pathname.split('/')[2] && location.pathname.includes('groups') ? (
                                         <button onClick={() => setGroupModal(true)}>
                                             <svg className="w-8 h-8" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
@@ -44,7 +48,7 @@ export default function Home() {
                                 </div>
                                 <Outlet context={[groupModal, setGroupModal]}/>
                             </main>
-                            {groupModal || deleteModal ? (<div className="bg-black opacity-60 absolute top-0 right-0 left-0 bottom-0">
+                            {groupModal || deleteModal ? (<div className="bg-black opacity-60 absolute top-0 right-0 left-0 bottom-0 z-10">
 
                             </div>) 
                             : null }
@@ -52,21 +56,25 @@ export default function Home() {
                     )
                     : <Navigate to='/login' />
                 }
-                <div onClick={() => setIsMenuOpen(true)} className="hidden md:block cursor-pointer bg-red-500 h-4 w-4 rounded-full absolute top-4 right-4">
+                <div onClick={() => setIsMenuOpen(true)} className="hidden md:block cursor-pointer absolute top-5 right-[20px]">
+                    <div className="space-y-1">
+                        <div className="w-5 h-1 rounded-sm bg-gray-400"></div>
+                        <div className="w-5 h-1 rounded-sm bg-gray-400"></div>
+                        <div className="w-5 h-1 rounded-sm bg-gray-400"></div>
+                    </div>
                     <Drawer
-                        className='z-10'
                         isOpen={isMenuOpen}
-                        placement="right"
                         onClose={() => setIsMenuOpen(false)}
-                        size='xs'
+                        placement="right"
+                        size="xs"
                     >
                         <DrawerOverlay />
-                        <DrawerContent>
-                            <DrawerCloseButton/>
+                        <DrawerContent className="p-4 bg-white">
+                            <DrawerCloseButton className="mb-5"/>
                             <DrawerHeader></DrawerHeader>
 
                             <DrawerBody>
-                                <h1>Hi</h1>
+                                <Aside user={authUser} modalState={{deleteModal, setDeleteModal}}></Aside>
                             </DrawerBody>
                         </DrawerContent>
                     </Drawer>

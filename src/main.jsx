@@ -12,6 +12,7 @@ import Chats from './Pages/Chats.jsx';
 import Profile from './Pages/Profile.jsx';
 import Chat from './Pages/Chat.jsx';
 import { ChakraBaseProvider } from '@chakra-ui/react';
+import Welcome from './Pages/Welcome.jsx';
 
 const router = createBrowserRouter([
   {
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
       {
         path: '/profile',
         element: <Profile/>
+      },
+      {
+        path: '/',
+        element: <Welcome/>
       }
     ]
   }
