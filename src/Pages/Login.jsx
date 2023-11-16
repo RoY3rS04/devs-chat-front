@@ -66,7 +66,7 @@ export default function Login() {
                                 type="password"
                             />
                         </div>
-                        <a href="http://localhost:8080/auth/google" className="flex gap-x-3 justify-center border py-2 px-3 text-gray-400 w-full">
+                        <a href={`${import.meta.env.VITE_BACKEND_URL}/auth/google`} className="flex gap-x-3 justify-center border py-2 px-3 text-gray-400 w-full">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google Logo" />
                             Login with Google
                         </a>
