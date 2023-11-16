@@ -12,7 +12,6 @@ export default function Chat({ type }) {
     const [chat, setChat] = useState({});
     const { authUser } = useAuth();
     const { id } = useParams();
-    const generalId = '654bb4e174e4c8639b09406a';
 
     useEffect(() => {
 
@@ -85,7 +84,7 @@ export default function Chat({ type }) {
         try {
             socket.emit(url, {
                 user: authUser,
-                id: id ?? generalId,
+                id,
                 body: {
                     content: formData.get('content')
                 }
